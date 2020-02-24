@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+        {% block heading %}
+        {% endblock %}
+
+     {% block body %}
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container"> 
+
+				<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+				</button> -->
+				<div id="navbarTogglerDemo01">
+				  <a  class="navbar-brand btn" href="#" data-toggle="modal" data-target="#channelModal"><span class="fa fa-plus"></span> Add channel</a>
+				</div>
+			</div>
+			  </nav>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url({{ url_for('static',filename='images/bg-01.jpg') }})">
+			<div class="row" id="rowForChannel">
+					{% if flag %}
+					<h2 class="alert alert-info">No Channels</h2>
+					{% else %}
+					{% for channel in channels %}
+				   <div class="col-md-4">
+						
+	 
+							<div class="wrap-channel">
+									<span class="login100-form-title p-b-10">
+										Channel: {{channel}}
+									</span>
+									<form action="dashboard" method="POST">
+									<div class="wrap-input100" >
+											<span class="focus-input100" style="color: #ccc;">
+												</span>
+											</div>
+											<input type="hidden" value="{{channel}}" name="channelName">
+											<button type="submit" class="btn btn-primary" id="join_btn">
+													join the room
+											</button>
+										</form>
+							</div>
+						
+					</div>
+				   {% endfor %}
+				
+				{% endif %}
+				
+				
+			</div>
+
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+
+	
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="channelModal" tabindex="-1" role="dialog" aria-labelledby="channelModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="channelModalLabel">Create Channel</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+					<form id="form" action="saveChannel" method="POST" >
+							<div class="form-group">
+							  <label for="exampleInputName">Name of the Channel</label>
+							  <input type="text" class="form-control" id="exampleInputName" name="name" aria-describedby="emailHelp" >
+							</div>
+							<!-- <div class="form-group">
+								<label for="exampleInputDesc">Description</label>
+								<input type="text" class="form-control" id="exampleInputDesc" name="desc"  min="1" max="100">
+								<small id="emailHelp" class="form-text text-muted">Should not be more than 100 characters</small>
+							</div> -->
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary" id="saveChannel">Save</button>
+						</div>
+					</form>
+		  </div>
+		</div>
+	  </div>
+	  {% endblock %}
+	  <script>
+			document.addEventListener('DOMContentLoaded', () => {
+			
+			document.querySelector('#join_btn').onclick = () => {
+				//ev.preventDefault();
+				console.log("{{channel}}");
+				localStorage.setItem('channel_name', "{{channel}}" );
+				
+    }
+
+});
+	  </script>
